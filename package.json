@@ -1,0 +1,62 @@
+{
+    "name": "ui5-webcomponents-example",
+    "version": "1.0.0",
+    "description": "SAP UI5 Web Components Example",
+    "author": "Dennis Schulmeister-Zimolong",
+    "license": "CC0",
+    "homepage": "https://github.com/DennisSchulmeister/ui5-webcomponents-example",
+    "bugs": {
+        "url": "https://github.com/DennisSchulmeister/ui5-webcomponents-example/issues"
+    },
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/DennisSchulmeister/ui5-webcomponents-example.git"
+    },
+    "keywords": [
+        "sap",
+        "ui5",
+        "fiori",
+        "web components",
+        "example"
+    ],
+    "scripts": {
+        "clean": "node scripts/clean.js",
+        "build:static": "npm run clean; node scripts/build-static.js",
+        "build:webpack": "webpack --mode production",
+        "build": "npm run build:static; npm run build:webpack",
+        "watch": "npm run build:static; watch-run -p 'static/**' npm run build:static",
+        "devserver": "npm run watch & webpack-dev-server --content-base build/ --mode development",
+        "staticserver": "npm run build; http-server ./build"
+    },
+    "config": {
+        "src_dir": "src",
+        "static_dir": "static",
+        "build_dir": "build",
+        "public_url": "",
+        "replace_variables_extensions": ".htm; .html"
+    },
+    "devDependencies": {
+        "@telecomsante/pdf-viewer": "^3.0.0-pre.1",
+        "@ui5/webcomponents": "^0.9.0",
+        "css-loader": "^2.1.0",
+        "email-link.js": "^1.0.1",
+        "extract-text-webpack-plugin": "^4.0.0-beta.0",
+        "file-loader": "^3.0.1",
+        "html-loader": "^0.5.1",
+        "http-server": "^0.11.1",
+        "less": "^3.9.0",
+        "less-loader": "^4.0.5",
+        "shelljs": "^0.8.3",
+        "style-loader": "^0.23.1",
+        "terser": "^3.14.1",
+        "terser-webpack-plugin": "^1.2.1",
+        "uglify-es": "git://github.com/mishoo/UglifyJS2.git#harmony",
+        "uglifyjs-webpack-plugin": "^2.1.1",
+        "url-loader": "^1.1.2",
+        "watch-run": "^1.2.5",
+        "webpack": "^4.29.0",
+        "webpack-cli": "^3.2.1",
+        "webpack-dev-server": "^3.1.14"
+    }
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>UI5 Web Components Beispiel</title>
+
+        <script src="index.bundle.js"></script>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="shortcut icon" href="img/ui5.png" />
+
+        <!--
+        To the extent possible under law, Dennis Schulmeister-Zimolong has waived all
+        copyright and related or neighboring rights to UI5 Web Components Beispiel.
+        This work is published from: Germany.
+        -->
+    </head>
+    <body>
+        <!-- Shellbar Header -->
+        <ui5-shellbar
+            id="shellbar"
+            primary-title="Credit Analytics"
+            secondary-title="Company Reports"
+            logo="img/sap-logo-svg.svg"
+            profile="img/woman_avatar_5.png"
+            notification-count="15+"
+            show-notifications
+            show-product-switch
+            show-co-pilot
+        >
+            <ui5-icon src="nav-back" data-ui5-slot="icon"></ui5-icon>
+            <ui5-input data-ui5-slot="searchField"></ui5-input>
+        </ui5-shellbar>
+
+        <!-- Popover for user menu -->
+        <ui5-popover id="popover" hide-header placement-type="Bottom">
+            <div class="popover-header">
+                <ui5-title style="padding: 0.25rem 1rem 0rem 1rem">An Kimura</ui5-title>
+            </div>
+
+            <div class="popover-content">
+                <ui5-list separators="None" >
+                    <ui5-li type="Active"icon="sap-icon://sys-find">App Finder</ui5-li>
+                    <ui5-li type="Active"icon="sap-icon://settings">Settings</ui5-li>
+                    <ui5-li type="Active"icon="sap-icon://edit">Edit Home Page</ui5-li>
+                    <ui5-li type="Active"icon="sap-icon://sys-help">Help</ui5-li>
+                    <ui5-li type="Active"icon="sap-icon://log">Sign out</ui5-li>
+                </ui5-list>
+            </div>
+        </ui5-popover>
+
+        <!-- Popover for application menu -->
+        <ui5-popover id="app-list-popover" hide-header placement-type="Bottom">
+            <ui5-list separators="None">
+                <ui5-li type="Active">Company Reports</ui5-li>
+                <ui5-li type="Active">Payment Behavior</ui5-li>
+                <ui5-li type="Active">Credit Reqeusts</ui5-li>
+                <ui5-li type="Active">Maintain Users and Roles</ui5-li>
+            </ui5-list>
+        </ui5-popover>
+
+        <script>
+            shellbar.addEventListener("profilePress", function(event) {
+                popover.openBy(event.detail.iconRef);
+            });
+
+            shellbar.addEventListener("titlePress", function(event) {
+                window["app-list-popover"].openBy(event.detail.iconRef);
+            });
+
+            shellbar.addEventListener("productSwitchPress", function(event) {
+                window["app-list-popover"].openBy(event.detail.iconRef);
+            });
+        </script>
+
+        <!-- Main Area -->
+        <main>
+            <!-- Tab Pages -->
+            <ui5-tabcontainer
+                class="full-width full-height"
+                show-overflow
+                selected-index="0"
+                background-design="Transparent"
+                id="tabcontainer"
+            >
+                <ui5-tab icon="sap-icon://manager-insight" text="Overview">
+                    <div style="display: flex;">
+                        <!-- Timeline -->
+                        <ui5-card
+                        	heading="Upcoming Activities"
+                        	subtitle="For Today"
+                        	class="medium"
+                            style="max-width: 30em; margin: 1em;"
+                        >
+                            <ui5-timeline>
+                                <ui5-timeline-item id="test-item" title-text="called" timestamp="1487583000000" icon="sap-icon://phone" item-name="John Smith" item-name-clickable></ui5-timeline-item>
+                                <ui5-timeline-item title-text="Weekly Sync - CP Design" timestamp="1517349600000" icon="sap-icon://calendar">
+                                    <div>MR SOF02 2.43</div>
+                                </ui5-timeline-item>
+                                <ui5-timeline-item title-text="Video Converence Call - UI5" timestamp="1485813600000" icon="sap-icon://calendar">
+                                    <div>Online meeting</div>
+                                </ui5-timeline-item>
+                            </ui5-timeline>
+                        </ui5-card>
+
+                        <!-- Card -->
+                        <ui5-card
+                            heading="Risk Team"
+                            subtitle="Direct Reports"
+                            class="medium"
+                            style="max-width: 40em; margin: 1em;"
+                        >
+                            <div class="card-content" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                                <ui5-list separators="None" class="card-content-child">
+                                    <ui5-li image="img/man_avatar_1.png" description="User Researcher">Alain Chevalier</ui5-li>
+                                    <ui5-li image="img/woman_avatar_1.png" description="Artist">Monique Legrand</ui5-li>
+                                    <ui5-li image="img/woman_avatar_2.png" description="UX Specialist">Michael Adams</ui5-li>
+                                </ui5-list>
+                                <ui5-list separators="None" class="card-content-child">
+                                    <ui5-li image="img/man_avatar_2.png" description="Software Architect">Richard Wilson</ui5-li>
+                                    <ui5-li image="img/woman_avatar_3.png" description="Visual Designer">Elena Petrova</ui5-li>
+                                    <ui5-li image="img/man_avatar_3.png" description="Quality Specialist">John Miller</ui5-li>
+                                </ui5-list>
+                            </div>
+                        </ui5-card>
+                    </div>
+                </ui5-tab>
+
+                <ui5-tab icon="sap-icon://detail-view" text="Details" data-show-pdf="yes">
+                    <a href="details.pdf" target="_blank">Download PDF</a>
+                </ui5-tab>
+
+                <ui5-tab icon="sap-icon://history" text="History">
+                    <!-- Table -->
+                    <ui5-table class="demo-table" id="table">
+                        <!-- Header Fields -->
+                        <ui5-table-column data-ui5-slot="columns" width="12em">
+                            <span style="line-height: 1.4rem" data-ui5-slot="header">Date and Time</span>
+                        </ui5-table-column>
+                        <ui5-table-column data-ui5-slot="columns" min-width="800" popin-text="Supplier">
+                            <span style="line-height: 1.4rem" data-ui5-slot="header">Report Type</span>
+                        </ui5-table-column>
+                        <ui5-table-column data-ui5-slot="columns" min-width="600">
+                            <span style="line-height: 1.4rem" data-ui5-slot="header">Fetched By</span>
+                        </ui5-table-column>
+                        <ui5-table-column data-ui5-slot="columns" min-width="600">
+                            <span style="line-height: 1.4rem" data-ui5-slot="header">Score Value</span>
+                        </ui5-table-column>
+                        <ui5-table-column data-ui5-slot="columns">
+                            <span style="line-height: 1.4rem" data-ui5-slot="header">Risk Class</span>
+                        </ui5-table-column>
+
+                        <!-- Table Date -->
+                        <ui5-table-row data-ui5-slot="rows" slot="rows-1">
+                            <ui5-table-cell slot="cells-1">
+                                <span>2019-01-03 16:00</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-2">
+                                <span>Company Report</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-3">
+                                <span>Michael Burnham</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-4">
+                                <span>220</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-5">
+                                <span>B</span>
+                            </ui5-table-cell>
+                        </ui5-table-row>
+
+                        <ui5-table-row data-ui5-slot="rows" slot="rows-1">
+                            <ui5-table-cell slot="cells-1">
+                                <span>2019-01-24 13:21</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-2">
+                                <span>Company Report</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-3">
+                                <span>Michael Burnham</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-4">
+                                <span>230</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-5">
+                                <span>B</span>
+                            </ui5-table-cell>
+                        </ui5-table-row>
+
+                        <ui5-table-row data-ui5-slot="rows" slot="rows-1">
+                            <ui5-table-cell slot="cells-1">
+                                <span>2019-03-04 15:41</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-2">
+                                <span>Company Report</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-3">
+                                <span>Christopher Pike</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-4">
+                                <span>200</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-5">
+                                <span>A</span>
+                            </ui5-table-cell>
+                        </ui5-table-row>
+
+                        <ui5-table-row data-ui5-slot="rows" slot="rows-1">
+                            <ui5-table-cell slot="cells-1">
+                                <span>2019-03-30 13:45</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-2">
+                                <span>Company Report</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-3">
+                                <span>Sylvia Tilly</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-4">
+                                <span>210</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-5">
+                                <span>A</span>
+                            </ui5-table-cell>
+                        </ui5-table-row>
+
+                        <ui5-table-row data-ui5-slot="rows" slot="rows-1">
+                            <ui5-table-cell slot="cells-1">
+                                <span>2019-04-01 11:11</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-2">
+                                <span>Company Report</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-3">
+                                <span>Hugh Culber</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-4">
+                                <span>250</span>
+                            </ui5-table-cell>
+                            <ui5-table-cell slot="cells-5">
+                                <span>B</span>
+                            </ui5-table-cell>
+                        </ui5-table-row>
+                    </ui5-table>
+                </ui5-tab>
+
+                <ui5-tab icon="sap-icon://address-book" text="Assignments">
+                    <ui5-label>More content here</ui5-label>
+                </ui5-tab>
+
+                <ui5-tab-separator></ui5-tab-separator>
+
+                <ui5-tab icon="sap-icon://notes" text="Notes">
+                    <ui5-label>More content here</ui5-label>
+                </ui5-tab>
+            </ui5-tabcontainer>
+
+            <iframe id="pdf-iframe" src="details.pdf" style="margin: 1em; height: 100%;" class="hidden"></iframe>
+
+            <script>
+                document.getElementById("tabcontainer").addEventListener("itemSelect", event => {
+                    let iframe = document.getElementById("pdf-iframe");
+
+                    if (event.detail.item.dataset.showPdf) {
+                        iframe.classList.remove("hidden");
+                    } else {
+                        iframe.classList.add("hidden");
+                    }
+                })
+            </script>
+        </main>
+    </body>
+</html>
