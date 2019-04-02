@@ -40,11 +40,11 @@ Getting Started
 
 Use the following commands to run this example:
 
- * `npm clean` to remove all generated files
- * `npm build` to build a static version to deploy on a web server
- * `npm watch` to automatically rebuild when the sources change
- * `npm devserver` to start webpack`s built-in web server
- * `npm staticserver` to start an alternative more simple web server
+ * `npm run clean` to remove all generated files
+ * `npm run build` to build a static version to deploy on a web server
+ * `npm run watch` to automatically rebuild when the sources change
+ * `npm run devserver` to start webpack`s built-in web server
+ * `npm run staticserver` to start an alternative more simple web server
 
 Copyright
 ---------
